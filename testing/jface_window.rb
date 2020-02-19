@@ -41,7 +41,7 @@ class MainWindow < ApplicationWindow
   end
 
   def getInitialSize
-    Point.new(500, 400)
+    Point.new(600, 800)
   end
 
 end
