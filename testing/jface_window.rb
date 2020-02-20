@@ -85,7 +85,7 @@ class Quitter < Action
   def initialize(name, window)
     super(name)
     @win = window
-    #self.accelerator = ?\C-x 
+    self.accelerator = SWT::MOD1 | 'q'.ord
   end
 
   def run
