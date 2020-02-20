@@ -1,4 +1,5 @@
 require 'java'
+require_relative 'app_constants.rb'
 
 java_import java.lang.System
 java_import org.eclipse.swt.SWT
@@ -13,7 +14,7 @@ java_import org.eclipse.jface.action.Action
 java_import org.eclipse.jface.action.MenuManager
 java_import org.eclipse.jface.action.Separator
 java_import org.eclipse.jface.action.StatusLineManager
-
+java_import org.eclipse.jface.action.ToolBarManager
 java_import  org.eclipse.jface.databinding.swt.DisplayRealm
 java_import org.eclipse.jface.window.ApplicationWindow
 java_import org.eclipse.swt.graphics.Image
@@ -35,7 +36,7 @@ class MainWindow < ApplicationWindow
     addMenuBar
     addToolBar(SWT::FLAT | SWT::WRAP)
     addStatusLine
-
+    App_Constants.hello("Main winder")
   end
 
   def createContents(parent)
@@ -45,10 +46,19 @@ class MainWindow < ApplicationWindow
     txtHello.text = "Hello World"
 
     getShell.text = "Kernai"
+    setStatus("Kernai is a go")
     container
   end
 
+  def createToolbarManager(style)
+    tbm = ToolBarManager.new(SWT::NONE)
+    tbm.update(true)
+    tbm
+  end
 
+  def createStatusLineManager
+    StatusLineManager.new
+  end
 
   def createMenuManager
     menu_manager = MenuManager.new("menu")
@@ -63,6 +73,7 @@ class MainWindow < ApplicationWindow
         puts "I ran"
       end
     }.new("&test")
+    test_action.accelerator = SWT::MOD1 | 't'.ord
 
     test_menu.add(test_action)
     menu_manager.add(test_menu)
